@@ -117,10 +117,10 @@ void Fleury(int *matrix[], int point, int dot, int first){
             flag = 0;
         }
     }
-
-    printf("\nInput point = %d\n", dot);
+    //printf("\nInput point = %d\n", dot);
+    printf("%d --> ", dot);
     if(flag == 1){
-        printf("\nEND OF FLEURY's ALGORITHM\n");
+        printf("End\n\nEND OF FLEURY's ALGORITHM\n");
         if(first == dot){
             printf("\nEULERIAN GRAPH\n");
         } else if(first != dot){
@@ -129,12 +129,14 @@ void Fleury(int *matrix[], int point, int dot, int first){
         return;
     }
 
-    for(i=1;i<=point;i++){
+  /*  for(i=1;i<=point;i++){
         points_2[i] = 0;
-    }
+    } */
     for(i=1;i<=point;i++){
         if((matrix[dot][i] == 1) || (matrix[i][dot] == 1)){
             points_2[i] = i;
+        } else{
+            points_2[i] = 0;
         }
     }
 
@@ -150,15 +152,15 @@ void Fleury(int *matrix[], int point, int dot, int first){
     }
 
     conn = bridge(matrix, point, dot, point_2, color);
-    printf("\nconn = %d\n", conn);
+    //printf("\nconn = %d\n", conn);
 
     if(conn == 0){
-        printf("\ncase 1\n");
+        //printf("\ncase 1\n");
         delete_edge(matrix, dot, point_2);
         Fleury(matrix, point, point_2, first);
     } else if((conn == 1) && (degrees_counter(matrix, point, dot) > 1)){
         while(conn == 1){
-            printf("\ncase 2\n");
+            //printf("\ncase 2\n");
             point_2 = adjacent_point(matrix, point, dot, points_2);
             if(point_2 != 0){
                 conn = bridge(matrix, point, dot, point_2, color);
@@ -170,7 +172,7 @@ void Fleury(int *matrix[], int point, int dot, int first){
         delete_edge(matrix, dot, point_2);
         Fleury(matrix, point, point_2, first);
     } else if((conn == 1) && (degrees_counter(matrix, point, dot) == 1)){
-        printf("\ncase 3\n");
+        //printf("\ncase 3\n");
         delete_edge(matrix, dot, point_2);
         Fleury(matrix, point, point_2, first);
     }
@@ -210,6 +212,7 @@ int main(){
         }
     }
     }
+    printf("\n\n");
 
     int dot = 0;
     srand(time(NULL));
